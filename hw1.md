@@ -2,7 +2,7 @@
 layout: page
 mathjax: true
 title: Linear Least Squares
-permalink: /2021/hw/hw1/
+permalink: /2022/hw/hw1/
 ---
 
 Table of Contents:
@@ -15,7 +15,7 @@ Table of Contents:
 
 <a name='due'></a>
 ## Due Date 
-11:59PM, Monday, February 15, 2021
+11:59PM, Tuesday, February 15, 2022
 
 <a name='intro'></a>
 ## Introduction
