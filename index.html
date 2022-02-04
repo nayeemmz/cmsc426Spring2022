@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head
+    content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!--<link rel="icon" href="img/cake.png">-->
+  <title>CMSC 426 Computer Vision Spring 2020</title>
+  <!-- Bootstrap core CSS -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="offcanvas.css" rel="stylesheet">
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]>
+      <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+    <![endif]-->
+  <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements
+    and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" href="thub.io/css/flat.css">
+  <link rel="stylesheet" href="do/New Site/aquamarine.css">
+  <link rel="stylesheet" href=".css">
+</head>
+
+<body>
+  <nav class="navbar navbar-fixed-top navbar-inverse" style="" draggable="true">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">CMSC426</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="schedule.html">Schedule</a>
+          </li>
+          <li>
+            <a href="contact.html">Contact</a>
+          </li>
+          <li>
+            <a href="notes.html">Notes</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="https://piazza.com/umd/spring2020/cmsc426/home">Piazza</a>
+          </li>
+          <li>
+            <a href="https://myelms.umd.edu/courses/1261802.html">Canvas</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+  <!-- /.navbar -->
+    <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row row-offcanvas row-offcanvas-right">
+      <div class="col-xs-12 col-sm-9" style="">
+        <div class="jumbotron">
+          <h1 class="section-primary">Welcome to CMSC426</h1>
+          <div>
+            <h1>
+              <p>&nbsp;Computer Vision Spring 2020</p>
+            </h1>
+          </div>
+        </div>
+        <div class="section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 overview-col">
+              <!--  <h2 class="text-left">Overview</h2>-->
+                  <h2>Overview</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>This course offers an introduction to Computer Vision and Computational Photography. The course will cover basic principles of Image Processing, Multiple View Geometry&nbsp; for Visual Navigation, and Image Recognition using Classical and&nbsp; Deep Learning .&nbsp; It will explore the&nbsp; topics of image formation , image feature,&nbsp; image stitching, image and video segmentation, motion estimation, tracking, stereo, SLAM, and object and scene recognition.&nbsp;&nbsp;<br>
+          <br>The course is&nbsp;intended for anyone interested in processing images or video, or interested in acquiring general background in real-world perception. The course is , organized around a number of&nbsp; projects. Through these projects you will learn&nbsp; the theory and practical skills required in&nbsp; jobsof&nbsp; computer vision engineering.<br>
+        </p>
+        <hr>
+        <h2>Grading</h2>
+        <ul class="">
+          <li>Projects 50 %</li>
+          <li>Homework 25%</li>
+          <li>MidTerm 20%</li>
+          <li>Class Participation 5%</li>
+        </ul>
+        <hr>
+        <h2>Prerequisites</h2> Programming proficiency is the only hard pre-requisite. We recommend familiarity with Matlab. Furthermore, students taking the class should be comfortable with basic Linear Algebra and calculus.
+        <hr>
+        <h2>Software</h2>
+  We will use MATLAB as the programming platform throughout this course, available to UMD students
+  through <a href="https://terpware.umd.edu/"></a>.
+  <hr>
+  <h2>Assignments</h2>
+
+	 All projects are intended to be done in groups of upto 3. However, homeworks MUST be done individually.
+<br>
+<h2>Late Policy</h2>
+
+We encourage students to submit in time.
+Late are submissions are accepted for five days for a 20% reduction in points
+<br>
+        <h2>Logistics</h2>
+        <p>All class announcements will be made through <a href="https://piazza.com/class/jlcs2nq5qxb19a">Piazza </a>. Please use Piazza to contact TAs, rather than email. </p>
+        <p> All projects and homeworks are to be submitted using <a href="https://myelms.umd.edu/courses/1261802">ELMS </a>.</p>.
+        <hr>
+        <h2>Course Outcomes</h2>
+        <ul class="">
+          <li>Knowledge of image formation process </li>
+          <li>Knowledge of image processing techniques for color and gray level images: edge detection, corner detection, segmentation </li>
+          <li>Basic knowledge of video processing, motion computation and 3D vision and geometry </li>
+          <li>Basic Knowledge of applying machine learning for Recognition Tasks</li>
+          <li>Ability to implement vision algorithms in Matlab</li>
+          <li>Ability to write a project report and discuss the results</li>
+        </ul>
+        <hr>
+        <h2>Collaboration Policy</h2>
+        <p>
+                Collaboration is encouraged, but one should know the difference between collaboration and cheating. Cheating may be defined as using or attempting to use unauthorized assistance, material, or study aids in academic work or examinations. Some examples of cheating are: collaborating on a take-home exam or homework unless explicitly allowed; copying homework; handing in someone else's work as your own; and plagiarism. 
+
+                You are welcome to collaborate with your peers, but it's important that your work is an expression of *your* understanding, and not merely something you copied from a peer.  So, we place strict limits on collaboration:        
+                <ul class="">
+                        <li>You must clearly cite your collaborators by name at the top of your report.  This includes Piazza posts referenced.</li>
+                        <li>You may not share or copy each other's code.  You can discuss how your code works, and the concepts it implements, but you can't just show someone your code.</li>
+                        <li>For homeworks, when it comes to formulating or writing solutions, you must work alone.  For example, if you're working with your peers on a common whiteboard, you may not simply copy from that whiteboard; you must write your answer separately, based on your own understanding of what you discussed.</li>
+                </ul>
+You may use free and publicly available external sources (such as books, journal and conference publications, and web pages) as research material for your answers.
+
+You may not use any service that involves payment, and you must clearly and explicitly cite all outside sources and materials that you made use of. We consider the use of uncited external sources as portraying someone else's work as your own, and as such it is a violation of the University's policies on academic dishonesty. We take this policy seriously: violations may result in a zero grade for the assignment, or even failing the course. 
+
+Unless otherwise specified, you should assume that that the <a href="http://www.president.umd.edu/policies/iii100a.html">UMD Code of Academic Integrity applies</a>.
+        </p>
+        <h2>Campus Policies</h2>
+        <p>It is our shared responsibility to know and abide by the University of Maryland’s policies that relate to all courses, which include topics like: </p>
+        <ul>
+          <li>Academic integrity</li>
+          <li>Student and instructor conduct</li>
+          <li>Accessibility and accommodations</li>
+          <li>Attendance and excused absences</li>
+          <li>Grades and appeals</li>
+          <li>Copyright and intellectual property</li>
+        </ul>
+        <p> Please visit <a href="https://www.ugst.umd.edu/courserelatedpolicies.html"> www.ugst.umd.edu/courserelatedpolicies.html </a>for the Office of Undergraduate Studies’ full list of campus-wide policies and follow up with me if you have questions </p>
+        <hr>
+        <!--/row-->
+      </div>
+      <!--/.col-xs-12.col-sm-9-->
+      <div class="col-sm-3 col-xs-6 hidden-sm sidebar-quick-links" id="sidebar">
+        <div class="panel-group" id="accordion">
+          <a class="list-group-item active">Quick Project Links</a>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+               <a data-toggle="collapse" href="#panel_1" data-parent="#accordion">Project 1</a>
+              </h4>
+            </div>
+           <div id="panel_1" class="panel-collapse collapse">
+              <ul class="list-group">
+                <a class="list-group-item" href="2020/proj/p1">link</a>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel_2" data-parent="#accordion">Project 2</a>
+              </h4>
+            </div>
+            <div id="panel_2" class="panel-collapse collapse">
+              <ul class="list-group">
+                <a class="list-group-item" href="2020/proj/p2">link</a>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel_3" data-parent="#accordion">Project 3</a>
+              </h4>
+            </div>
+            <div id="panel_3" class="panel-collapse collapse">
+              <ul class="list-group">
+                <a class="list-group-item" href="2020/proj/p3">Project 3</a>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+               <a data-toggle="collapse" href="2020/proj/p4" data-parent="#accordion">Project 4</a>
+              </h4>
+            </div>
+            <div id="panel_4" class="panel-collapse collapse">
+              <ul class="list-group">
+              <!--  <a class="list-group-item" href="2020/proj/p4">Project 4</a> -->
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel_5" data-parent="#accordion">Homework 1</a>
+              </h4>
+            </div>
+            <div id="panel_5" class="panel-collapse collapse">
+              <ul class="list-group">
+                 <a class="list-group-item" href="2020/hw/hw1">link</a>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#panel_6" data-parent="#accordion">Homework 2</a>
+              </h4>
+            </div>
+            <div id="panel_6" class="panel-collapse collapse">
+              <ul class="list-group">
+                 <a class="list-group-item" href="2020/hw/hw2">link</a>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+               <a data-toggle="collapse" href="/2020/hw/hw3" data-parent="#accordion">Homework 3</a>
+              </h4>
+            </div>
+            <div id="/2019/hw/hw3" class="panel-collapse collapse">
+              <ul class="list-group">
+              <!--  <a class="list-group-item" href="2020/proj/p4">Homework 4</a> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/.sidebar-offcanvas-->
+    </div>
+    <!--/row-->
+    <hr>
+    <footer style="font-size:12px">
+      <i class="fa fa-github"></i>
+      <a href="https://github.com/cmsc426Spring2019/nayeemmz.github.io/">View on GitHub</a>
+    </footer>
+  </div>
+  <style>
+    .button {
+      border-radius: 4px;
+      background-color: #00C851;
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 16px;
+      padding: 10px;
+      width: 180px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button:hover span {
+      padding-right: 25px;
+    }
+
+    .button:hover span:after {
+      opacity: 1;
+      right: 0;
+    }
+  </style>
+  <!--/.container-->
+  <!-- Bootstrap core JavaScript==================================================-
+    ->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+  </script>
+  <script src="../../dist/js/bootstrap.min.js" style=""></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  <script src="index.js"></script>
+
+</body>
+
+</html>
+>>>>>>> 962f901ebacaf503a790a2da645d89bcd69a2a9c

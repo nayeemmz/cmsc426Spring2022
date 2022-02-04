@@ -1,0 +1,253 @@
+---
+layout: page
+title: Math Tutorial
+permalink: /math-tutorial/
+---
+**This article is written by [Nitin J. Sanket](http://nitinjsanket.github.io).** 
+
+updated by Cornelia Ferm&uuml;ller (1/21/2019)
+
+updated by Mohammad Nayeem Teli (09/03/2019)
+
+The Table of Contents:
+
+- [Hilbert Space, Vectors, Dot and Cross Products](#hilbert)
+- [Eigenvalues and Eigenvectors](#eigen)
+- [Singular Value Decomposition (SVD)](#svd)
+- [Line fitting using Linear Least Squares](#linefit)
+	- [Null-space](#nullspace)
+- [\\(A\mathbf{x}=\mathbf{b}\\)](#axeqb)
+- [Effect of outliers on \\(A\mathbf{x}=\mathbf{b}\\) and Regularization to combat them](#reg)
+
+<a name='hilbert'></a>
+## Hilbert Space, Vectors, Dot and Cross Products
+In the simplest sense, the Euclidean space we consider in everyday life is mathematically called the Hilbert Space. The co-ordinates of the Hilbert space can represent anything from physical metric coordinates (most general sense) to something like the cost of goods, the volume of goods and so on. Any general metric graph is a Hilbert Space. An \\(n\\) dimensional Hilbert space is said to live in \\(\mathbb{R}^n\\) which indicates that all the numbers represented in this space are real. Note that Cartesian space is different from Hilbert space and is a sub-set of it. Mathematically, a Hilbert space is an abstract vector space which preserves the structure of an inner product. In non-math terms, it just means that one can measure length and angle in this space. 
+
+Now, for the sake of easy discussion and without loss of any generality let us assume that our Hilbert Space is in \\(\mathbb{R}^3\\). Think of this as our \\(X-Y-Z\\) coordinate space. Any point in space \\(p\\) is represented as a triplet \\([x,y,z]^T\\), i.e., having three values (one for the x-coordinate, one for the y-coordinate and one for the z-coordinate). I made an implicit assumption when I said that we have an \\(X-Y-Z\\) coordinate space. Can you think of what it is?
+
+Simply, I assumed that the three axes (basis) are perpendicular or orthogonal to each other. One may ask why we need this condition? This is to have the minimal amount of values to represent any data in the space and to  have a unique combination of these axes (basis) to represent a point. Also, the axes are represented by unit vectors for representing direction only (more about this later). Now any point in the space represents a vector from the origin \\([0,0,0]^T\\) to itself, i.e., the tail of the vector is at the origin and the head of the vector is at the point. Note that the vector is a column vector. This is the general mathematical representation of a vector. Otherwise unless stated, vectors are assumed to be column vectors. 
+
+Now let us assume that the space is Cartesian. One might  wonder what other spaces exist? Think of [cylindrical coordinates](http://mathworld.wolfram.com/CylindricalCoordinates.html) or [spherical coordinates](http://mathworld.wolfram.com/SphericalCoordinates.html) which are used in panorama stitching on your phone for Virtual Reality. Let us assume that we have three points in this space denoted as \\(A, B, C\\). The vector from the origin to either \\(A\\) or \\(B\\) or \\(C\\) is denoted by their respective coordinates. Now a vector between two points \\(A, B\\) is represented as \\(\vec{AB}\\) and is given by \\(\vec{AB} = B - A\\). 
+
+The dot product between two vectors \\( \vec{AB}, \vec{BC} \\) is defined as \\( \vec{AB}\cdot \vec{BC} = \vert \vert \vec{AB} \vert \vert \vert \vert \vec{BC} \vert \vert \cos \theta\\). Here, \\(\vert \vert \vec{AB} \vert \\)\vert represents norm of the vector \\(\vec{AB}\\) and is given as \\( \sqrt{AB_x^2 + AB_y^2 + AB_z^2}\\), where \\(\vec{AB} = [AB_x, AB_y, AB_z]^T\\). \\( \theta \\) is the angle between the two vectors. Note that the dot product is a scalar value. The dot product represents the projection of one vector onto another vector. This is generally used to measure similarity of vectors in Computer Vision, such as for example in processing 3D data from multiple cameras or from a [Kinect sensor](https://en.wikipedia.org/wiki/Kinect). Note that the dot product is commutative (\\(\mathbf{a}\cdot \mathbf{b} = \mathbf{b}\cdot \mathbf{a}\\)) and **not** associative because the dot product between a scalar (\\(a \cdot b\\)) and a vector (\\(c\\)) is not defined.  \\((a \cdot b) \cdot c\\) or \\(a \cdot (b \cdot c\\)) are both ill-defined. Other properties can be found [here](https://en.wikipedia.org/wiki/Dot_product).
+
+
+<div class="fig figleft fighighlight">
+  <img src="../assets/math/proj.png" width="35%">
+  <div class="figcaption">
+    Projection of \(a\) on \(b\) (\(a1\)), and subtraction of \(a\) from \(b\) (\(a2\)).
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+
+It is incovinent to write the vector superscript everytime, so a boldface text is commonly used to represent vectors, for eg., \\( \vec{AB}\\) and \\( \mathbf{AB}\\) represent the same thing. 
+
+The cross product between two vectors \\(\mathbf{a}, \mathbf{b}\\) is defined as \\( \mathbf{a} \times \mathbf{b} = \vert \vert \mathbf{a} \vert \vert \vert \vert \mathbf{b} \vert \vert \sin \theta \mathbf{n}\\). Here \\( \mathbf{n}\\) is the vector perpendicular/normal to the plane containing the two vectors \\( \mathbf{a}, \mathbf{b} \\) and \\(\theta\\) is the angle between the two vectors. The direction of the cross product is found using the right hand rule in a right handed coordinate system. 
+
+<div class="fig figleft fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/crossproduct.png" width="35%">
+  <div class="figcaption">
+    Finding the direction of the cross product by the right-hand rule.
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+
+An animation of the cross product is shown below:
+
+<div class="fig figleft fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/crossproductanimation.gif" width="35%">
+  <div class="figcaption">
+   The cross product \( \mathbf{a} \times \mathbf{b}\) (vertical, in purple) changes as the angle between the vectors \( \mathbf{a} \) (blue) and \( \mathbf{b} \) (red) changes. The cross product is always orthogonal to both vectors, and has magnitude zero when the vectors are parallel and maximum magnitude \( \vert \vert \mathbf{a} \vert \vert \vert \vert \mathbf{b} \vert \vert \) when they are orthogonal.
+  </div>
+  <div style="clear:both;"></div>
+</div>
+
+The cross product is used to find the normal vector to a plane in Computer Vision. This is especially useful in aligning 3D point clouds (images with depth information). This method is extensively used in self driving cars to make a map using LIDAR scans. If you are curious, have a look at the [Point to Plane Iterative Closest Point algorithm](https://www.comp.nus.edu.sg/~lowkl/publications/lowk_point-to-plane_icp_techrep.pdf) to understand how this works.  Note that the cross prodct is  anticommutative (\\(\mathbf{a}\times \mathbf{b} = -\mathbf{b}\times\mathbf{a}\\)) and **not** associative. Other properties can be found [here](https://en.wikipedia.org/wiki/Dot_product).
+
+<a name='eigen'></a>
+## Eigenvalues and Eigenvectors
+In the following we consider transformations with square matrices (i.e. the matrix \\( A \in \mathbb{R}^{n \times n}\\)), and which are
+diagonizable, such as the symmetric matrices of the covariance of data.
+
+Let us say we have a vector \\(\mathbf{v}\\) in \\( \mathbb{R}^n\\). A linear transformation of \\(\mathbf{v}\\) is given by a matrix \\(A\\) multiplied by \\(\mathbf{v}\\). One could have a special vector \\(\mathbf{v}\\) such that the function \\(A \mathbf{v}\\) returns a scaled version of \\(\mathbf{v}\\), i.e., the direction of the \\( \mathbf{v}\\) is maintained upon a linear transformation by \\(A\\). This can mathematically be written as:
+
+$$
+A \mathbf{v} = \lambda \mathbf{v}
+$$
+
+Note that \\( \lambda \mathbf{v}\\) is a scaled version of \\(\mathbf{v}\\), i.e., the direction of both the vectors is the same. Recall, that the direction of a vector \\(\mathbf{v}\\) is given by \\(\frac{\mathbf{v}}{\vert \vert \mathbf{v} \vert \vert}\\). The concept of scale factor is very important for computer vision and will be later used in the last project. 
+
+In the above transformation \\( A \in \mathbb{R}^{n \times n}\\). Now one can solve the above equation as follows:
+
+$$
+\left(A - \lambda I \right)\mathbf{v} =  0
+$$
+
+Here \\( I\\) is an identity matrix of size \\( n \times n\\) and has all the diagonal elements as 1 and non-diagonal elements as 0. Once the above equation is solved, one would find \\(n\\) pairs of \\(\lambda_i\\) and \\(\mathbf{v}_i\\) such that the above equation is satisfied (\\(i\\) varies from 1 to \\(N\\)). These set of \\(\lambda_i\\) values are called **eigenvalues** and these set of \\(\mathbf{v}_i\\) vectors are called **eigenvectors**. Note that the eigenvectors are linearly independent, i.e., the dot product between any of them is zero. However, the eigenvalues need not be distinct if we have a matrix \\(Q\\) whose columns are made up of the eigenvectors, i.e., 
+
+$$
+Q = \begin{bmatrix} \mathbf{v_1} & \mathbf{v_2} & \cdots & \mathbf{v_n} \end{bmatrix}
+$$
+
+Now, consider \\( AQ\\) and the fact that \\( A \mathbf{v} = \lambda \mathbf{v}\\).
+
+$$
+AQ = \begin{bmatrix} \lambda_1\mathbf{v_1} & \lambda_2\mathbf{v_2} & \cdots & \lambda_n\mathbf{v_n} \end{bmatrix}
+$$
+
+This can be re-written as:
+
+$$
+AQ = \begin{bmatrix} \mathbf{v_1} & \mathbf{v_2} & \cdots & \mathbf{v_n} \end{bmatrix} \Lambda
+$$ 
+
+Here \\(\Lambda\\) is a diagonal matrix with \\(\Lambda_{ii} = \lambda_i\\). We also know that the columns of \\(Q\\) are linearly independent, and this means that 
+\\(Q\\) is invertible. 
+
+$$
+A = Q\Lambda Q^{-1}
+$$
+
+The above is called **Eigen-decomposition** in the literature. Eigen-decomposition is very commonly used in an algorithm called [**Principle Component Analysis (PCA)**](https://en.wikipedia.org/wiki/Principal_component_analysis). PCA is used to find the most important linearly independent basis of a given data. 
+
+You might be wondering what the intuition to Eigen-decomposition is. The eigenvalues represent the covariance and eigenvectors represent the linearly independent directions of variation in data. Sample eigenvectors and eigenvalues are shown below:
+
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/eigenvectors.png" width="60%">
+  <div class="figcaption">Eigenvectors of a covariance matrix of data shown in blue. Data is drawn from a gaussian distribution.</div>
+</div>
+
+For a detailed explanation of the visualization look at [this link](http://www.visiondummy.com/2014/04/geometric-interpretation-covariance-matrix/). In computer vision, eigenspaces have been used for ages. Consider the problem of face recognition. Here we have a dataset of a lot of faces and we need to identify the person given a photo of the face. This is similar to what TSA does when they check your ID at the airport, they are manually trying to see if the photo in the ID looks like the person in front of them. One of the earliest face recognition methods used eigenspaces and the algorithm is aptly called **Eigenfaces**. The idea of the algorithm is to represent any face as a linear combination of **eigenfaces**. These **eigenfaces** are supposed to represent the most common features of a face and that any face can be reconstructed as their linear combination. This means that each face is represented as a vector of weights which multiply these eigenfaces and are added up to make the original face. Think of this as representing each face as an encoded vector. This idea is also used extensively in compression. During the face identification, the test face is also converted to a vector and the label (person ID) of closest vector in the training set (database of face images on the computer) is chosen as the predicted label (person ID). A visual representation of this is shown below. For more details look at [this link](http://www.vision.jhu.edu/teaching/vision08/Handouts/case_study_pca1.pdf).
+
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/eigenface1.PNG" width="35%">
+  <div class="figcaption">Sample images in the database/training set.</div>
+  <img src="/cmsc426Spring2020/assets/math/eigenface2.PNG" width="70%">
+  <div class="figcaption">
+   Top row: Eigenfaces. Bottom row: How any face can be represented as a linear combination of eigenfaces.</div>
+</div>
+
+Note that Eigendecomposition only works on **square matrices**.
+
+<a name='svd'></a>
+## Singular Value Decomposition (SVD)
+One can think of SVD as the generalized version of the Eigen-decomposition. Let \\( A\\) be a matrix of size \\(m \times n\\). The SVD of \\(A\\) is given by:
+
+$$
+A = U\Sigma V^T
+$$
+
+Note that \\(\Sigma\\) here does not refer to the covariance matrix. Here, \\(U\\) is a \\(m \times m\\) square orthonormal basis function. The columns of \\(U\\) form a set of orthonormal (unit normal) vectors which can be regarded as basis vectors. \\(V^T\\) is a \\(n \times n\\) square orthonormal basis function as well. The columns of \\(V\\) also form a set of orthonormal (unit normal) vectors which can be regarded as basis vectors. Think of \\(U, V^T\\) as matrices which rotate the data. \\(\Sigma\\) is a \\(m \times n \\) diagonal rectangular matrix which acts as a scaling matrix. Note that for SVD to be valid \\(A \\) has to be a Positive Semi-Definite matrix (PSD), i.e., \\( A \succeq 0\\) or all the eigenvalues have to be non-negative (either zero or positive). You might be wondering this looks very similar to the eigendecomposition we studied earlier. What is the relation between the two?
+
+The matrix \\(U\\) (left singular values) of \\(A\\) gives us the eigenvectors of \\(AA^T\\). Similarly, as you expect, the matrix \\(V\\) (right singular values) of \\(A\\) gives us the eigenvectors of \\(A^TA\\).  The non-zero singular values of \\(A\\) (found on diagonal entries of \\(\Sigma\\)) are the square roots of non-zero eigenvalues of both \\(AA^T\\) and \\(A^TA\\). 
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/svd.png" width="35%">
+  <div class="figcaption">Visualization of the matrix multiplications in singular value decomposition.</div>
+  <img src="/cmsc426Spring2020/assets/math/svdanimation.gif" width="50%">
+  <div class="figcaption">
+  Visualization of how different components of SVD make up the matrix \(A\).</div>
+</div>
+ 
+
+<a name='linefit'></a>
+## Line fitting using Linear Least Squares
+Let us define the problem in hand first. Assume that we have \\(N\\) points in \\(\mathbb{R}^n\\), for purposes of simplicity without loss in any generality let \\(n=2\\). We want to fit a line (the equivalent is a plane in \\(\mathbb{R}^n\\) and a hyperplane in \\(\mathbb{R}^n\\)). When \\(N = 1\\), one can fit \\(\infty\\) number of lines which satisfy the constraint of passing though the point and hence has no unique exact (the line passes through the point) solution. Now, when \\(N = 2\\), one can fit a unique and exact solution because we have exactly the same number of parameters (number of unknowns in the line equation) as the number of constraints (equations). However, things get tricky when \\(N > 2\\). One might wonder when we would encouter such a situtation, this is more common than you think. Assume that we want to fit a line to a number of pixels in an image, possible to detect a lane on an self driving car.
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426fall2019/assets/math/lane1.png" width="70%">
+  <div class="figcaption">Left: Input image to a self driving car for lane detection. Right: Pixel candidates where one would fit a line to find the lane, notice that there are multiple lines possible, for the purposes of the example assume that we want to fit a line to the pixels inside the red ellipse.</div>
+</div>
+
+Let us model the problem mathematically, we have \\(N\\) points in \\(\mathbb{R}^2\\) to which we want to fit the **best-fit** line. The best-line has to be defined before we proceed. One could argue that I can pick any random two points and fit a line and call that the best-fit. However, this solution is the best for those two points and not for all points. If all the points lie on a line one could say that we have an **exact** and **unique** solution, but this rarely happens. The more common version of this problem is that the best-fit line generally would not pass through any of the points. Sample datapoints with their linear least-squares line solution is shown below:
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426Spring2020/assets/math/linearregression.png" width="70%">
+  <div class="figcaption">Random data points and their linear least-squares line solution.</div>
+</div>
+
+<a name='axeqb'></a>
+## \\(A\mathbf{x}=\mathbf{b}\\)
+You might be wondering what the title means. The last method (\\(A\mathbf{x}=\mathbf{0}\\)) we solved is called Linear Homogeneous set of equations and \\(A\mathbf{x}=\mathbf{b}\\) is called Linear Inhomogeneous set of equations. The problem formulation is slightly different from the earlier case as one would except. 
+
+We have \\(N\\) observations of \\([\mathbf{x_i}, \mathbf{y_i}]^T\\) where \\(x_i \in \mathbb{R}^{n \times 1}\\) and \\(y_i \in \mathbb{R}^1\\). We want to fit a model such that 
+
+$$
+y_i = \mathbf{x_i}^T \beta 
+$$
+
+However due to noise (assumed to be gaussian with mean zero and some co-variance, i.e., ) the data samples are obtained from:
+
+$$
+y_i = \mathbf{x_i}^T \beta + \mathcal{N}(\mathbf{x} \vert 0, \Sigma)
+$$
+
+In matrix form:
+
+$$
+\mathbf{y} = \mathbf{X}^T \beta + \mathcal{N}(\mathbf{x} \vert 0, \Sigma)
+$$
+
+The optimization problem is defined next:
+
+$$
+\begin{equation*}
+\begin{aligned}
+& \underset{\beta}{\text{argmin}}
+& & \vert \vert \mathbf{y} - \mathbf{X}\beta \vert \vert \\
+\end{aligned}
+\end{equation*}
+$$
+
+The **Ordinary least squares** solution is given by:
+
+$$
+\hat{\beta} = \left( \mathbf{X}^T \mathbf{X}\right)^{-1} \mathbf{X}^T\mathbf{y}
+$$
+
+The matrix \\(\mathbf{X}^T \mathbf{X} \\) is called the **Gram matrix** and is **Positive Semi Definite (PSD)** (all eigenvalues \\(\ge 0\\)). The matrix \\( \mathbf{X}^T\mathbf{y}\\) is called the **moment matrix**. For a detailed derivation look at [this blog post](https://economictheoryblog.com/2015/02/19/ols_estimator/). If you don't remember matrix properties, have a look at [The Matrix cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf). 
+
+
+<a name='reg'></a>
+## Effect of outliers on \\(A\mathbf{x}=\mathbf{b}\\) and Regularization to combat them
+In the previous section, we only talked about how one could obtain the least squares solution but did not analyze what the effect of noise would be. Let \\(A \\) be a \\(m \times n\\) matrix. Consider the solution to \\( A\mathbf{x}=\mathbf{b}\\). The solution to this problem would be \\( \mathbf{x} = A^\dagger \mathbf{b}\\) where \\(A^\dagger\\) denotes the [pseudo-inverse](https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_inverse) of \\(A\\). Computing the pseudo-inverse doesn't look that trivial, does it? Luckily, we have SVD to the rescue!
+
+If SVD of \\(A\\) is given as \\(A=U\Sigma V^T\\), then \\(A^\dagger = V\Sigma^{-1}U^T\\). Here \\(\Sigma^{-1}\\) is defined such that all the non-zero elements are inverted and zeros are maintained as is. If \\(\mathbf{b}\\) is noisy, we have \\(b = \hat{b} + \mathcal{N(\mathbf{x} \vert 0, \sigma)}\\) where \\( \hat{\mathbf{b}} \\) is the value without noise. If one tries the reconstruct with a noisy \\(\mathbf{b}\\) the solution \\(\mathbf{x}\\) obtained would be complete junk (or super noisy depending on \\(A\\)). Don't worry you'll do this in your homework. Why did this happen? All the singular values are affected equally by noise, so the smallest singular value gets affected by a relatively large noise which makes the estimated \\(\mathbf{x}\\) super noisy, i.e., much more noisier than \\(\mathbf{b}\\). In fact, the noise gets amplified by \\(\Lambda_{ii}^{-1}\\) (the inverse of the singular value), this number is huge when the singular value is small. In fact, there is a term which signifies the noise sensitivity of the matrix \\(A\\) and is given by:
+
+$$
+\kappa = \frac{\sigma_{max}}{\sigma_{max}} = \left\lvert\frac{\lambda_{max}}{\lambda_{min}} \right\rvert
+$$
+
+
+\(\kappa\) is known as the *condition number*.  Here \\(\sigma_{max}\\) and \\(\sigma_{min}\\) refers to the maximum and minimum singular values respectively. Similarly,  \\(\lambda_{max}\\) and \\(\lambda_{min}\\) refers to the maximum and minimum eigenvalues respectively. If the noiseless version of the problem is \\(\mathbf{\hat{x}} = A^\dagger \mathbf{\hat{b}}\\) and the noisy version is \\(\mathbf{x} = A^\dagger \mathbf{b}\\), the relation between the estimates and condition number is given below:
+
+$$
+\frac{\vert \vert \mathbf{x} - \mathbf{\hat{x}}\vert \vert}{\vert \vert\mathbf{\hat{x}}\vert \vert} \le  \kappa \frac{\vert \vert \mathbf{\hat{b}} - \mathbf{b}\vert \vert}{\vert \vert\mathbf{\hat{b}}\vert \vert}
+$$
+
+Clearly, one can observe that the noise is amplified by a factor of \\(\kappa\\). A high \\(\kappa\\) can lead to optimization problems to fail and is a huge research topic. 
+
+However, years of research has given good insight into the above problem and one of the simplest methods to combat the effect of noise is to modify the optimization problem as follows:
+
+$$
+\begin{equation*}
+\begin{aligned}
+& \underset{\beta}{\text{argmin}}
+& & \vert \vert \mathbf{y} - \mathbf{X}\beta \vert \vert + \lambda \vert \vert \beta \vert \vert^2\\
+\end{aligned}
+\end{equation*}
+$$
+
+In the above problem, \\(\lambda\\) is a user chosen value which determines the amount of penalization/penalty (prior) on the norm of \\(\beta\\). This new optimization problem is called the **Ridge Regression** or Tikhonov regularization or Linear least squares with L\\(_2\\) penalty. As you would expect, this also has a closed form solution given by:
+
+$$
+\hat{\beta} = \left( \mathbf{X}^T \mathbf{X} + \lambda I \right)^{-1} \mathbf{X}^T\mathbf{y}
+$$
+
+Here, \\(I\\) is the identity matrix. The reason why Ridge regression can handle noise better than linear regression is that it improves the condition number of \\( \mathbf{X}^T \mathbf{X} \\). The new condition number becomes \\( \frac{\sigma_{max}^2 + \lambda}{\sigma_{min}^2 + \lambda}\\). This value is lower than the original condition number we had which means that the solution is less sensitive to noise. This is similar to adding prior information to the optimization problem which acts as a noise removal filter. In Bayesian terms, this is finding the Maximum a-posteriori (MAP) estimate for the Gaussian noise assumption. 
+
+

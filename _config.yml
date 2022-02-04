@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+
+=======
+# Site settings
+title: CMSC426 Computer Vision
+#email:nayeem@.umd.edu
+#email:fer@cfar.umd.edu
+description: "Course materials and notes for University of Maryland's class CMSC426: Computer Vision."
+baseurl: ""
+url: "http://nayeemmz.github.io"
+#github_username:  cmsc426
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+>>>>>>> 962f901ebacaf503a790a2da645d89bcd69a2a9c
+
+theme: jekyll-theme-cayman
