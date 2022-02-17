@@ -14,7 +14,7 @@ Table of Contents:
 
 <a name='due'></a>
 ## Deadline
-11:59PM, Monday, February 26, 2022
+11:59PM, Saturday, February 26, 2022
 
 <a name='intro'></a>
 ## Introduction
