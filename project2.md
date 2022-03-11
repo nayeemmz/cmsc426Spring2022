@@ -38,10 +38,10 @@ A brief description of each step (you'll implement the steps **in bold**):
 - Cylinder Projection:  Project images onto a cylinder, to reduce distortion at the panorama's edges.  For this project, it's optional.
 - Detect Corners:  identify corner points in your images.  (You can just use OpenCV's [`cornerHarris`](https://docs.opencv.org/4.1.2/dd/d1a/group__imgproc__feature.html#gac1fc3598018010880e370e2f709b4345))
 - **ANMS**: pick out the stronger corner points.
-- **Feature Descriptors**: create descriptors for the corner points, so they can be matched between images (in the next step). You may use a library to find the SIFT descriptors or your own code from the previous project.
-- **Feature Matching**: Match feature descriptors from different images, to find possible point correspondences.
-- **RANSAC and Homography Estimation**: refine the feature point matches, and use the correspondences to estimate homographies between images.
-- **Image Warping (and Blending)**: Use the estimated homographies to warp the images onto one another, and apply blending to reduce the appearance of seams where they fit together.
+- **Feature Descriptors**: create descriptors for the corner points, so they can be matched between images (in the next step). See the approach in the document provided above.
+- **Feature Matching**: Match feature descriptors from different images, to find possible point correspondences (helper code provided).
+- **RANSAC and Homography Estimation**: refine the feature point matches, and use the correspondences to estimate homographies between images. Homography helper code is also provided.
+- **Image Warping (and Blending)**: Use the estimated homographies to warp the images onto one another, and apply blending to reduce the appearance of seams where they fit together. See description for implementing this.
     - For blending in this project, you can simply average the pixel values of overlapping images or take the maximum.
 
 ### Point Distribution:
