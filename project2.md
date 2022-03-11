@@ -99,4 +99,4 @@ As usual, your report must be full English sentences, **not** commented code. Th
 You are encouraged to discuss the ideas with your peers. However, the code should be your own, and should be the result of you exercising your own understanding of it. If you reference anyone else's code in writing your project, you must properly cite it in your code (in comments) and your writeup.  For the full honor code refer to the CMSC426 Spring 2021 website.
 
 ## Acknowledgements
-This fun homework was inspired by a similar project in UPenn's <a href="https://alliance.seas.upenn.edu/~cis581/wiki/index.php?title=CIS_581:_Computer_Vision_%26_Computational_Photography">CIS581</a> (Computer Vision & Computational Photography).
+This fun homework was inspired by a similar project in UPenn's <!-- <a href="https://alliance.seas.upenn.edu/~cis581/wiki/index.php?title=CIS_581:_Computer_Vision_%26_Computational_Photography"> -->CIS581<!-- </a> --> (Computer Vision & Computational Photography).
