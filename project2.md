@@ -1,66 +1,102 @@
 ---
 layout: page
 mathjax: true
-title: Implementation of Scale Invariant Feature Transform (SIFT)
+title: Panorama Stitching
 permalink: /proj/p2/
 ---
 
 Table of Contents:
-- [Due Date](#due)
+- [Deadline](#due)
 - [Introduction](#intro)
-- [Part 1: Implementation](#part1)
-- [Part 2: What to submit](#part2)
+- [System Overview](#system_overview)
+  - [Problem Statement](#pro)
 - [Submission Guidelines](#sub)
 - [Collaboration Policy](#coll)
 
 <a name='due'></a>
-## Due Date
-11:59 PM, Tuesday, March 23, 2021
+## Deadline
+11:59PM, Sunday, March 20, 2022
 
 <a name='intro'></a>
 ## Introduction
-In this homework you will implement Scale Invariant Feature Transform (SIFT). We will practice it on a set of images from Caltech-101 dataset that you would use in a later project as well. You may download Caltech-101 data
-set from the following [link](http://www.vision.caltech.edu/Image_Datasets/Caltech101/#Download). All the images of this dataset are stored in folders, named for each category. However, we will be using just three of those categories: airplanes, dolphin and Leopards. If you would like to try for other categories too, please feel free to do so.  
+
+The aim of this project is to implement an end-to-end pipeline for panorama stitching. We all use the panorama mode on our smart-phones--you'll implement a pipeline which does the same basic thing!
+
+This document just provides an overview of what you need to do.  For a full breakdown of how each step in the pipeline works, see <a href="/cmsc426Spring2022/pano/">the course notes for this project</a>.
+
+<a name='system_overview'></a>
+## System Overview
+
+Here's a system diagram, showing each step in your panorama-stitching pipeline:
+
+<div class="fig figcenter fighighlight">
+  <img src="/cmsc426Spring2022/assets/proj2/system_diagram.png" width="100%">
+</div>
+
+A brief description of each step (you'll implement the steps **in bold**):
+
+- Cylinder Projection:  Project images onto a cylinder, to reduce distortion at the panorama's edges.  For this project, it's optional.
+- Detect Corners:  identify corner points in your images.  (You can just use OpenCV's [`cornerHarris`](https://docs.opencv.org/4.1.2/dd/d1a/group__imgproc__feature.html#gac1fc3598018010880e370e2f709b4345))
+- **ANMS**: pick out the stronger corner points.
+- **Feature Descriptors**: create descriptors for the corner points, so they can be matched between images (in the next step). You may use a library to find the SIFT descriptors or your own code from the previous project.
+- **Feature Matching**: Match feature descriptors from different images, to find possible point correspondences.
+- **RANSAC and Homography Estimation**: refine the feature point matches, and use the correspondences to estimate homographies between images.
+- **Image Warping (and Blending)**: Use the estimated homographies to warp the images onto one another, and apply blending to reduce the appearance of seams where they fit together.
+    - For blending in this project, you can simply average the pixel values of overlapping images or take the maximum.
+
+### Point Distribution:
+- ANMS: 25pts
+- Feature Descriptors: 15pts
+- Feature Matching: 15pts
+- RANSAC and Homography Estimation: 20pts
+- Image Warping (and Blending): 25pts
 
 
-<a name='part1'></a>
-## Part 1: Implementation (70 pts)
+## Project Files and Starter Code
+Please find the starter code at [this link](/cmsc426Spring2022/assets/proj2/project2.zip).
+This also includes three sets of "training images". Twenty-four hours before the due date, we'll distribute a "test set" of two more sets of images (look out for an announcement on Piazza).
 
-You are expected to implement all the parts of the code without using any in-built libraries except for the basic operations from Numpy and Matplotlib for showing results. You may find functions such as imregionalmin, and imregionalmax provided [here](/cmsc426Spring2021/assets/proj2/image.py), useful for this project. In addition you may use Scipy for Gaussian filters and if you need cv2 for modifying images such as changing size etc.
-
-
-<a name='part2'></a>
-## Part 2: - What to submit (30 points)
-
-1. proj2.ipynb - A jupyter notebook with the SIFT implementation. You should write different definitions (functions) for each step of the code to make it modular and easy to test and verify.
-2. Few sample images of airplanes, dolphins, and, Leopards and display the key point locations for the feature descriptors using small circles. Something like the following image:
-      <center>
-      <div class="fig fighighlight">
-        <img src="/cmsc426Spring2020/assets/hw2/dolphin_keypoints.jpg" width="50%">
-        <div class="figcaption">
-        </div>
-        <div style="clear:both;"></div>
-      </div>
-        </center>
-      You can pick any images you like.
- 3. A report describing the key aspects of the homework including the problems you encountered and how you solved them.
-
+When writing your program, you can assume that input images will always follow the filename convention "1.jpg", "2.jpg", etc.
 
 <a name='sub'></a>
 ## Submission Guidelines
 
-Your submission on Canvas must be a zip file, following the naming convention YourDirectoryID_proj2.zip. For
-example, xyz123_proj2.zip. The file must have the following directory structure, 
-- proj2.ipynb
-- report.pdf
-- results/. containing some samples of each image category showing feature points.
+<b> We will deduct points if your submission does not comply with the following guidelines.</b>
+
+
+### File tree and naming
+
+Your submission on Canvas must be a zip file, following the naming convention **YourDirectoryID_hw2.zip**.  For example, xyz123_hw2.zip.  The file **must have the following directory structure**:
+
+- YourDirectoryID_proj2.zip/
+    - code/
+        - panorama.ipynb
+    - images/
+        - input/
+        - custom1,2/
+        - (all of the other train and test images)
+    - report.pdf
+
+In the Jupyter notebook, your code should load the images in `images/input/` and display a resulting panorama in the end.
 
 ### Report
+**You will be graded primarily based on your report.**  We want
+you to demonstrate an understanding of the concepts involved in the project, and to show the output
+produced by your code.
 
-Please include the original images and SIFT feature descriptor locations for all the images you choose to discuss in your report. Also include your observations about the
-feature descriptors pertaining to each class of images. For example, was it easier to find keypoints in one category of images versus others, etc.
-As usual, your report must be full English sentences,not commented code
+
+Include visualizations of the output of each stage in your pipeline (as shown in the system diagram
+on page 2), and a description of what you did for each step.  Assume that we're familiar with the
+homework, so you don't need to spend time repeating what's already in the course notes.  Instead, focus
+on any interesting problems you encountered and/or solutions you implemented.
+
+Be sure to include the output panoramas for **all five image sets** (from the training **and** test sets).  Because you have limited time in which to access the "test set" images, we won't expect in-depth analysis of your results for them.
+
+As usual, your report must be full English sentences, **not** commented code. There is a word limit of 750 words and no minimum length requirement.
 
 <a name='coll'></a>
 ## Collaboration Policy
-You are encouraged to work on this project in groups of three at the most. The code should be your own, and should be the result of you exercising your own understanding of it. If you reference anyone else's code in writing your project, you must properly cite it in your code (in comments) and your writeup. For the full honor code refer to the CMSC426 Spring 2021 website.
+You are encouraged to discuss the ideas with your peers. However, the code should be your own, and should be the result of you exercising your own understanding of it. If you reference anyone else's code in writing your project, you must properly cite it in your code (in comments) and your writeup.  For the full honor code refer to the CMSC426 Spring 2021 website.
+
+## Acknowledgements
+This fun homework was inspired by a similar project in UPenn's <a href="https://alliance.seas.upenn.edu/~cis581/wiki/index.php?title=CIS_581:_Computer_Vision_%26_Computational_Photography">CIS581</a> (Computer Vision & Computational Photography).
