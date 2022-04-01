@@ -15,7 +15,7 @@ Table of Contents:
 
 <a name='due'></a>
 ## Due Date
-11:59 PM, Sunday, April 16, 2021
+11:59 PM, Friday, April 15, 2021
 
 <a name='intro'></a>
 ## Introduction
