@@ -59,4 +59,4 @@ You are required to submit the following files:
 ## Collaboration Policy
 You may discuss methods and ideas with your peers but may not share code.
 
-For the full collaboration policy, including guidelines on citations and limitations on using online resources, see <a href="http://www.cs.umd.edu/class/Spring2022/cmsc426-0201/">the course website</a>.
+For the full collaboration policy, including guidelines on citations and limitations on using online resources, see <a href="https://www.cs.umd.edu/class/spring2022/cmsc426-0201/">the course website</a>.
