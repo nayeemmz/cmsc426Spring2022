@@ -24,7 +24,7 @@ In this project you will implement a Convolutional Neural Network (CNN) in two d
  
 The goal of this assignment is to help you understand CNN's by building their different components. You will be applying your Tensorflow CNN implementation on the CIFAR10 dataset classification. In both approaches some of the components include, forward convolution, backward convolution, zero padding, max-pooling and average-pooling. Backpropagation code is provided for you.
 
-In order to help you implement this you are provided with [starter code](/cmsc426Spring2022/assets/hw3/hw3-starterFiles.zip) that contains two Jupyter notebooks and images necessary for this project. The files <i>cnn-with-backprop.ipynb</i> and <i>Cifar10ClassificationUsingCNN.ipynb</i> are to be used for the step by step approach and the Tensorflow framework approach, respectively. The descriptions of these files are as follows:
+In order to help you implement this you are provided with [starter code](/cmsc426Spring2022/assets/hwk3/hw3-starterFiles.zip) that contains two Jupyter notebooks and images necessary for this project. The files <i>cnn-with-backprop.ipynb</i> and <i>Cifar10ClassificationUsingCNN.ipynb</i> are to be used for the step by step approach and the Tensorflow framework approach, respectively. The descriptions of these files are as follows:
 
 <ul>
 
